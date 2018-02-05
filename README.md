@@ -7,4 +7,4 @@ While in Pokémon Go you hunt for Pokémons, in QRmon Go you hunt for QR codes!
 
 Scan a QR code and a quiz will appear!
 
-*** (my first Android app) ***
+*** my first Android app ***
