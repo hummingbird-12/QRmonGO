@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">QRmon GO</string>
+
+    <string name="btn_scan">스캔 시작!</string>
+    <string name="btn_hist">QRmon 목록</string>
+    <string name="btn_priv">개인 정보 처리 방침</string>
+
 </resources>
