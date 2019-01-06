@@ -2,6 +2,7 @@ package com.ino.qrmon;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +29,14 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         setContentView(R.layout.activity_main);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         askForPermission();
+
+        findViewById(R.id.btnDex).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, QRdexActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void askForPermission() {

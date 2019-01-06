@@ -12,26 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/main_logo"
-        android:layout_above="@id/btn1"
+        android:layout_above="@id/btnScan"
         android:layout_alignParentTop="true"/>
 
     <Button
-        android:id="@+id/btn3"
+        android:id="@+id/btnPriv"
         style="@style/btn"
         android:layout_marginBottom="80dp"
         android:layout_alignParentBottom="true"
         android:text="@string/btn_priv"/>
 
     <Button
-        android:id="@+id/btn2"
+        android:id="@+id/btnDex"
         style="@style/btn"
-        android:layout_above="@id/btn3"
-        android:text="@string/btn_hist"/>
+        android:layout_above="@id/btnPriv"
+        android:text="@string/btn_qrdex"/>
 
     <Button
-        android:id="@+id/btn1"
+        android:id="@+id/btnScan"
         style="@style/btn"
-        android:layout_above="@id/btn2"
+        android:layout_above="@id/btnDex"
         android:text="@string/btn_scan"
         android:onClick="QrScan"/>
 
