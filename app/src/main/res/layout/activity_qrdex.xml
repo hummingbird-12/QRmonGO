@@ -17,12 +17,12 @@
     <GridView
         android:id="@+id/dexContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:columnWidth="100dp"
         android:numColumns="auto_fit"
-        android:verticalSpacing="24dp"
-        android:horizontalSpacing="10dp"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
         android:stretchMode="spacingWidthUniform"
         android:layout_margin="5dp"
         android:scrollbars="vertical">
