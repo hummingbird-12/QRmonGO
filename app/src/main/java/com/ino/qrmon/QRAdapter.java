@@ -42,12 +42,12 @@ public class QRAdapter extends BaseAdapter {
         ImageView imageView;
         TextView textView;
         String filename = "quiz" + String.valueOf(position);
-        int drawableId;
+        int quizId;
 
         try {
             Class res = R.drawable.class;
             Field field = res.getField(filename);
-            drawableId = field.getInt(null);
+            quizId = field.getInt(null);
         }
         catch (Exception e) {
             Log.e("QRdex", "Failure to get drawable id.", e);
@@ -60,16 +60,17 @@ public class QRAdapter extends BaseAdapter {
                 imageView.setLayoutParams(new GridView.LayoutParams(240, 180));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setPadding(3, 3, 3, 3);
-                imageView.setImageResource(drawableId);
+                imageView.setImageResource(quizId);
                 return imageView;
             }
             else {
                 textView = new TextView(mContext);
                 textView.setLayoutParams(new GridView.LayoutParams(240, 180));
                 textView.setPadding(3, 3, 3, 3);
-                textView.setBackgroundColor(Color.LTGRAY);
+                textView.setBackgroundResource(R.drawable.qrbtn);
                 textView.setGravity(Gravity.CENTER);
                 textView.setTextSize(24);
+                textView.setTextColor(Color.BLACK);
                 textView.setText(String.valueOf(position + 1));
                 return textView;
             }
@@ -77,7 +78,7 @@ public class QRAdapter extends BaseAdapter {
         else {
             if(found[position]) {
                 imageView = (ImageView) convertView;
-                imageView.setImageResource(drawableId);
+                imageView.setImageResource(quizId);
                 return imageView;
             }
             else {
