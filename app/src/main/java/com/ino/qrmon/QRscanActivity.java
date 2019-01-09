@@ -2,6 +2,7 @@ package com.ino.qrmon;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,9 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
         String code;
         int quizId;
 
+        SharedPreferences pref;
+        SharedPreferences.Editor editor;
+
         onPause();
 
         // Do something with the result here
@@ -71,6 +75,11 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
             return;
         }
 
+        pref = getApplicationContext().getSharedPreferences("qrDex", 0); // 0 - for private mode
+        editor = pref.edit();
+        editor.putBoolean("q" + rawResult.getText(), true);
+        editor.apply();
+
         ImageView image = new ImageView(this);
         image.setImageResource(quizId);
 
@@ -86,6 +95,7 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 Intent intent = new Intent( QRscanActivity.this, QRdexActivity.class);
+                intent.putExtra("update", true);
                 startActivity(intent);
             }
         });

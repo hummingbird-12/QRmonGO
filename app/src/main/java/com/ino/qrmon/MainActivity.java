@@ -16,12 +16,12 @@ public class MainActivity extends AppCompatActivity {
 
     private final static int CAMERA_PERMISSION = 0x5;
 
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button btn_scan, btn_dex;
+
+        SharedPreferences pref;
+        SharedPreferences.Editor editor;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, QRdexActivity.class);
+                intent.putExtra("update", false);
                 startActivity(intent);
             }
         });
@@ -50,11 +51,10 @@ public class MainActivity extends AppCompatActivity {
         editor = pref.edit();
         if(!pref.contains("initQRdex")) {
             editor.putBoolean("initQRdex", true);
-            for(int i = 1; i <= 100; i++)
+            for(int i = 0; i < 100; i++)
                 editor.putBoolean("q" + String.valueOf(i), false);
             editor.apply();
         }
-
     }
 
     public void askForPermission() {
