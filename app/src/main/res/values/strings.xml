@@ -7,4 +7,5 @@
 
     <string name="title_qrdex">나의 QRdex</string>
 
+    <string name="qrdex_reset">QRdex를 초기화 하시겠습니까?</string>
 </resources>
