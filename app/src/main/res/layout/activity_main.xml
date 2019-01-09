@@ -32,7 +32,6 @@
         android:id="@+id/btnScan"
         style="@style/btn"
         android:layout_above="@id/btnDex"
-        android:text="@string/btn_scan"
-        android:onClick="QrScan"/>
+        android:text="@string/btn_scan" />
 
 </RelativeLayout>

@@ -1,42 +1,60 @@
 package com.ino.qrmon;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.zxing.Result;
-
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
-public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class MainActivity extends AppCompatActivity {
 
     private final static int CAMERA_PERMISSION = 0x5;
-    private ZXingScannerView mScannerView;
+
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Button btn_scan, btn_dex;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         askForPermission();
 
-        findViewById(R.id.btnDex).setOnClickListener(new View.OnClickListener() {
+        btn_scan = findViewById(R.id.btnScan);
+        btn_scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, QRscanActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_dex = findViewById(R.id.btnDex);
+        btn_dex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, QRdexActivity.class);
                 startActivity(intent);
             }
         });
+
+        pref = getApplicationContext().getSharedPreferences("qrDex", 0); // 0 - for private mode
+        editor = pref.edit();
+        if(!pref.contains("initQRdex")) {
+            editor.putBoolean("initQRdex", true);
+            for(int i = 1; i <= 100; i++)
+                editor.putBoolean("q" + String.valueOf(i), false);
+            editor.apply();
+        }
+
     }
 
     public void askForPermission() {
@@ -82,57 +100,5 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             // other 'case' lines to check for other
             // permissions this app might request
         }
-    }
-
-    public void QrScan(View view) {
-        mScannerView = new ZXingScannerView(this); //initialize scanner view
-        setContentView(mScannerView);
-        mScannerView.setResultHandler(this); //register ourselves as a handler for scan results
-        mScannerView.startCamera(); //start camera
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-        if(mScannerView != null) {
-            mScannerView.stopCamera();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(mScannerView != null) {
-            mScannerView.startCamera();
-        }
-    }
-
-    @Override
-    public void handleResult(Result rawResult) {
-        String code;
-        onPause();
-        // Do something with the result here
-        Log.d("QR_SCAN_RESULT", rawResult.getText());
-        code = "quiz_" + rawResult.getText();
-
-        ImageView image = new ImageView(this);
-        //image.findViewById(R.drawable.main_logo);
-        image.setImageResource(getResources().getIdentifier(code, "drawable", "com.ex.qrmongo"));
-        //show the scanner result into dialog box
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setIcon(R.mipmap.icon);
-        builder.setTitle("QRmon 발견!");
-        builder.setView(image);
-        builder.setPositiveButton("닫기", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                setContentView(R.layout.activity_main);
-            }
-        });
-        AlertDialog alert1 = builder.create();
-        alert1.show();
-        //if you would like to resume scanning, call mScannerView.resumeCameraPreview(this);
-        onResume();
-        mScannerView.resumeCameraPreview(this);
     }
 }
