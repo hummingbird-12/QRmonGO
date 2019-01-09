@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -44,9 +43,9 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
         super.onResume();
         if(mScannerView != null) {
             mScannerView.startCamera();
+            //if you would like to resume scanning, call mScannerView.resumeCameraPreview(this);
+            mScannerView.resumeCameraPreview(this);
         }
-        //if you would like to resume scanning, call mScannerView.resumeCameraPreview(this);
-        mScannerView.resumeCameraPreview(this);
     }
 
     @Override
