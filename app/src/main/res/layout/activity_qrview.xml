@@ -9,7 +9,8 @@
     <TextView
         android:id="@+id/qrTitle"
         android:layout_alignParentTop="true"
-        style="@style/title" />
+        style="@style/title"
+        android:text="@string/qrmonNum"/>
 
     <ImageView
         android:id="@+id/qrmonImage"

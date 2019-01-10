@@ -9,20 +9,22 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QRdexActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         BaseAdapter gridAdapter = new QRAdapter(this);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrdex);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        hideSystemUI();
 
         GridView gridView = findViewById(R.id.dexContent);
         TextView textView = findViewById(R.id.dexTitle);
@@ -74,8 +76,30 @@ public class QRdexActivity extends AppCompatActivity {
 
                 resetAlert = builder.create();
                 resetAlert.getWindow().setAttributes(lp);
+                resetAlert.getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
                 resetAlert.show();
                 return true;
+            }
+        });
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                SharedPreferences pref;
+                SharedPreferences.Editor editor;
+
+                pref = getApplicationContext().getSharedPreferences("qrDex", 0); // 0 - for private mode
+
+                if(pref.getBoolean("q" + String.valueOf(position), false)) {
+                    Intent intent1 = new Intent(getApplicationContext(), QRviewActivity.class);
+                    intent1.putExtra("qrNum", position);
+                    startActivity(intent1);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "아직 발견하지 않은 QRmon 입니다!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -84,5 +108,21 @@ public class QRdexActivity extends AppCompatActivity {
             gridView.invalidateViews();
         }
         gridView.setAdapter(gridAdapter);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+            View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 }
