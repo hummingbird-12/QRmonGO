@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button btn_scan, btn_dex;
+        Button btn_scan, btn_dex, btn_priv;
 
         SharedPreferences pref;
         SharedPreferences.Editor editor;
@@ -44,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, QRdexActivity.class);
                 intent.putExtra("update", false);
                 startActivity(intent);
+            }
+        });
+
+        btn_priv = findViewById(R.id.btnPriv);
+        btn_priv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hummingbird12.tistory.com/2"));
+                startActivity(browserIntent);
             }
         });
 
