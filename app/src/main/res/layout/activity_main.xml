@@ -11,8 +11,10 @@
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/main_logo"
         android:layout_above="@id/btnScan"
+        android:src="@drawable/mainlogo"
+        android:scaleType="centerInside"
+        android:visibility="visible"
         android:layout_alignParentTop="true"/>
 
     <Button
