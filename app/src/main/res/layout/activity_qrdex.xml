@@ -9,14 +9,8 @@
 
     <TextView
         android:id="@+id/dexTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:text="@string/title_qrdex"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="#000"/>
+        style="@style/title"
+        android:text="@string/title_qrdex" />
 
     <GridView
         android:id="@+id/dexContent"
