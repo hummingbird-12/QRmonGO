@@ -10,7 +10,15 @@
     <TextView
         android:id="@+id/dexTitle"
         style="@style/title"
+        android:layout_marginBottom="0dp"
         android:text="@string/title_qrdex" />
+
+    <TextView
+        android:id="@+id/dexReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/qrdex_resetText"/>
 
     <GridView
         android:id="@+id/dexContent"

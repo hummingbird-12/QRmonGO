@@ -27,7 +27,7 @@ public class QRdexActivity extends AppCompatActivity {
         hideSystemUI();
 
         GridView gridView = findViewById(R.id.dexContent);
-        TextView textView = findViewById(R.id.dexTitle);
+        TextView textView = findViewById(R.id.dexReset);
 
         textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
