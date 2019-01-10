@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QRmon GO</string>
+    <string name="app_name">QRmon GO 2.0</string>
 
     <string name="btn_scan">스캔 시작!</string>
     <string name="btn_qrdex">QRdex</string>
