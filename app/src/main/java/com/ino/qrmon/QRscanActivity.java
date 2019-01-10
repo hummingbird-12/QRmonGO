@@ -54,7 +54,7 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
     @Override
     public void handleResult(Result rawResult) {
         String code;
-        int quizId;
+        int quizId, QRcnt;
 
         SharedPreferences pref;
         SharedPreferences.Editor editor;
@@ -78,7 +78,10 @@ public class QRscanActivity extends AppCompatActivity implements ZXingScannerVie
         }
 
         pref = getApplicationContext().getSharedPreferences("qrDex", 0); // 0 - for private mode
+        QRcnt = pref.getInt("QRmonCount", 0);
         editor = pref.edit();
+        if(!pref.getBoolean("q" + rawResult.getText(), false))
+            editor.putInt("QRmonCount", QRcnt + 1);
         editor.putBoolean("q" + rawResult.getText(), true);
         editor.apply();
 

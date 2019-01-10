@@ -23,7 +23,7 @@ public class QRviewActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.qrmonImage);
 
         int target = intent.getIntExtra("qrNum", 1);
-        String targetText = getResources().getString(R.string.qrmonNum) + String.valueOf(target);
+        String targetText = getResources().getString(R.string.qrmonNum) + String.valueOf(target + 1);
         String filename = "quiz" + String.valueOf(target);
 
         try {

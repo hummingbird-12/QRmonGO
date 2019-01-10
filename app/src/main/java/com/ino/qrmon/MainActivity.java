@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         editor = pref.edit();
         if(!pref.contains("initQRdex")) {
             editor.putBoolean("initQRdex", true);
+            editor.putInt("QRmonCount", 0);
             for(int i = 0; i < 100; i++)
                 editor.putBoolean("q" + String.valueOf(i), false);
             editor.apply();

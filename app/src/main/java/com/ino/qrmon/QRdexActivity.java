@@ -21,6 +21,7 @@ public class QRdexActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         BaseAdapter gridAdapter = new QRAdapter(this);
         final Intent intent = getIntent();
+        SharedPreferences pref;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrdex);
@@ -28,6 +29,12 @@ public class QRdexActivity extends AppCompatActivity {
 
         GridView gridView = findViewById(R.id.dexContent);
         TextView textView = findViewById(R.id.dexReset);
+        TextView title = findViewById(R.id.dexTitle);
+
+        pref = getApplicationContext().getSharedPreferences("qrDex", 0); // 0 - for private mode
+        String titleText = " (" + String.valueOf(pref.getInt("QRmonCount", -1) + "/100)");
+        titleText = getString(R.string.title_qrdex) + titleText;
+        title.setText(titleText);
 
         textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -52,6 +59,7 @@ public class QRdexActivity extends AppCompatActivity {
                         pref = getApplicationContext().getSharedPreferences("qrDex", 0); // 0 - for private mode
                         editor = pref.edit();
 
+                        editor.putInt("QRmonCount", 0);
                         for(int j = 0; j < 100; j++)
                             editor.putBoolean("q" + String.valueOf(j), false);
                         editor.apply();
